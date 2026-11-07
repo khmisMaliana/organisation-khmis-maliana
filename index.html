@@ -10,7 +10,7 @@ body{margin:0;min-height:100vh;background:linear-gradient(var(--b1),var(--b2),va
 .btn{background:linear-gradient(90deg,var(--a2),var(--a1));color:var(--bt);border:0;border-radius:16px;padding:14px;font-size:17px;font-weight:700;width:100%}
 .mini{border:2px solid var(--sk);background:var(--cd);color:var(--tx);border-radius:50%;width:30px;height:30px;font-weight:700;font-size:11px;margin:0 3px}
 .mini.on{background:var(--a1);color:var(--bt)}
-input,textarea{width:100%;background:var(--cd);border:1px solid var(--sk);border-radius:14px;color:var(--tx);padding:12px;font-size:16px;margin-top:8px}
+input,textarea{width:100%;background:var--cd);border:1px solid var(--sk);border-radius:14px;color:var(--tx);padding:12px;font-size:16px;margin-top:8px}
 #top{position:fixed;top:calc(12px + env(safe-area-inset-top));left:12px;right:12px;display:flex;justify-content:space-between;z-index:5;max-width:var(--w);margin:auto}
 .rb{width:40px;height:40px;border-radius:50%;background:var(--cd);border:1px solid var(--sk);color:var(--a1);font-size:18px}
 #pal{position:fixed;top:calc(60px + env(safe-area-inset-top));inset-inline-start:max(12px,calc((100vw - var(--w))/2 + 12px));background:var(--b2);border:1px solid var(--sk);border-radius:24px;padding:10px;z-index:6;display:none;max-width:250px;max-height:75vh;overflow:auto}
@@ -78,10 +78,10 @@ window.IC=function(n,s,c,st){let b=P[n]||"";if(c)b=b.replace(/url\(#g[mg]\)/g,c)
 </script>
 <script>
 // ===== NET: طبقة اتصال بديلة محلية. استبدل BASE ومنطق call بما في Net.java =====
-const NET={B:"https://okm-api.hdghbcds514.workers.dev",
+const NET={B:"https://okm-api.hdghbcds514.workers.dev",B2:"https://okm-api.hdghbcds516.workers.dev",
 dev(){return LS.dev||(LS.dev=crypto.randomUUID())},
 async once(b,m,p,body,code){try{const r=await fetch(b+p,{method:m,headers:{"X-Code":encodeURIComponent(code),"X-Dev":this.dev(),...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined});let js=null;try{js=await r.json()}catch(e){}return{rc:r.status,js}}catch(e){return{rc:0,js:null}}},
-async call(m,p,body,code){code=code??LS.code??"";return this.once(this.B,m,p,body,code)}};
+async call(m,p,body,code){code=code??LS.code??"";const rd=m=="GET"||p=="/login",dn=r=>r.rc==0||r.rc>=500||(r.rc>=400&&!r.js),onB=rd&&Date.now()<+(LS.fb||0);let r=await this.once(onB?this.B2:this.B,m,p,body,code);if(rd&&dn(r)){const r2=await this.once(onB?this.B:this.B2,m,p,body,code);if(!dn(r2)){r=r2;if(!onB)LS.fb=Date.now()+600000;else delete LS.fb}}return r}};
 const AR=0,FR=1,EN=2,LS=localStorage;
 const TH=[["#000","#06070a","#10131a","#edeff3","rgba(201,206,214,.67)","rgba(255,255,255,.08)","rgba(201,206,214,.22)","#ffb866","#c9ced6","#1a1100"],
 ["#fff","#f3f6fd","#e3e9f8","#14204a","rgba(20,32,74,.67)","rgba(20,32,74,.06)","rgba(20,32,74,.15)","#3d5afe","#1e2a78","#fff"],
